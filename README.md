@@ -22,7 +22,7 @@ Linux
     /go # req -b http://mock:1323/static/index.html
     {"code":200,"time":0.003842074,"body":"\u003c!doctype html\u003e\n\u003chtml lang=\"ja\"\u003e\n\u003chead\u003e\n\u003cmeta charset=\"UTF-8\"\u003e\n\u003ctitle\u003eMock Server\u003c/title\u003e\n\u003c/head\u003e\n\u003cbody\u003e\nHello world!\n\u003c/body\u003e\n\u003c/html\u003e","output":"no output"}
 
-### Output response body to file
+### Download file
 Linux  
 
     /go # req -o output.html http://mock:1323/static/index.html
