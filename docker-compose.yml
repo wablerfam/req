@@ -11,16 +11,3 @@ services:
     volumes:
       - .:/go/src/req
     entrypoint: tail -f /dev/null
-
-  mock:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: golang-work:1.0.0
-    container_name: mock
-    ports:
-      - 1323:1323
-    volumes:
-      - ./mock:/go/src/mock
-    working_dir: /go/src/mock
-    command: ["go", "run", "app.go"]

@@ -27,6 +27,7 @@ Linux
 
     /go # req -o output.html http://mock:1323/static/index.html
     {"code":200,"time":0.006174548,"body":"no print","output":"output.html"}
+    
     /go # #easy output -O
     /go # req -O http://mock:1323/static/index.html
     {"code":200,"time":0.008993875,"body":"no print","output":"index.html"}
