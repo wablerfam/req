@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-func Output(filename string, body string) {
+func OutputFile(filename string, body string) {
 	file, err := os.Create(filename)
 	if err != nil {
 		panic(err)

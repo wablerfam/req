@@ -10,52 +10,54 @@ import (
 	"req/options"
 )
 
-type Out struct {
+type Result struct {
 	Code int `json:"code"`
 	Time float64 `json:"time"`
 	Body string `json:"body"`
-	Output string `json:"output"`
+	File string `json:"file"`
 }
 
 func main() {
-	var flagBody = flag.Bool("b", false, "stream the response body")
-	var flagOutput = flag.String("o", "", "output body to a file")
-	var flagOutputEasy = flag.Bool("O", false, "Output the body to file with no file name")
-
+	var (
+		flagBody = flag.Bool("b", false, "stream the response body")
+		flagOutputFile = flag.String("o", "", "output body to a file")
+		flagOutputFileEasy = flag.Bool("O", false, "Output the body to file with no file name")
+	)
+	
 	flag.Parse()
 
-	if *flagOutput != "" && *flagOutputEasy != false {
+	if *flagOutputFile != "" && *flagOutputFileEasy != false {
 		panic("Error: -o and -O can not be used at the same time")
 	}
 
 	url := flag.Args()[0]
 
-	code, body, time := client.Exec(url)
+	code, body, time := client.Request(url)
 
-	out := Out{
+	result := Result{
 		Code: code,
 		Time: time.Seconds(),
 		Body: "no print",
-		Output: "no output",
+		File: "no output",
 	}
 
 	if *flagBody != false {
-		out.Body = body
+		result.Body = body
 	}
 
-	if *flagOutput != "" {
-		options.Output(*flagOutput, body)
-		out.Output = *flagOutput
-	} else if *flagOutputEasy != false {
+	if *flagOutputFile != "" {
+		options.OutputFile(*flagOutputFile, body)
+		result.File = *flagOutputFile
+	} else if *flagOutputFileEasy != false {
 		_ ,filename := path.Split(url)
-		options.Output(filename, body)
-		out.Output = filename
+		options.OutputFile(filename, body)
+		result.File = filename
 	}
 
-	jsonOut, err := json.Marshal(out)
+	jsonResult, err := json.Marshal(result)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(string(jsonOut))
+	fmt.Println(string(jsonResult))
 }

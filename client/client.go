@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func Exec(url string) (int, string, time.Duration) {
+func Request(url string) (int, string, time.Duration) {
 	transport := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
